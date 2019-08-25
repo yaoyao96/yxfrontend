@@ -1,10 +1,10 @@
 export default [
-  { name: 'course',
+  { name: 'Type',
     required: true,
-    label: '缴费课程数',
+    label: '种类',
     align: 'left',
-    field: row => row.number_of_course,
-    format: val => `${val}节`,
+    field: row => row.income_type,
+    format: val => `${val}`,
     sortable: true },
   { name: 'amount',
     required: true,
@@ -17,9 +17,9 @@ export default [
   },
   { name: 'time',
     required: true,
-    label: '缴费时间',
+    label: '开支时间',
     align: 'left',
     field: row => row.create_time,
     sortable: true }
 ]
-// 'url', 'id','number_of_course','amount','create_time','student'
+// 'number_of_month','amount','create_time','student'

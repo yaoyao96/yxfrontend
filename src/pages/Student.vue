@@ -1,5 +1,9 @@
 <template>
-<div> <q-card v-for="student in students" :key="student.id"
+<div>
+  <q-btn class="q-my-md" @click="addStudentInfo=true" style="position:relative; left:60vw"> 增加学生 </q-btn>
+  <q-dialog v-model="addStudentInfo"><student-info-form @success="closeDialog"
+                                                           :create-student="createStudent"></student-info-form></q-dialog>
+  <q-card v-for="student in students" :key="student.id"
                clickable
                style="max-width: 80vw"
                class="q-pa-sm q-ma-lg">
@@ -20,11 +24,24 @@
 
 <script>
 import api from 'src/api/api'
+import studentInfoForm from 'src/components/studentInfoForm'
 export default {
   name: 'student',
+  components: {
+    studentInfoForm
+  },
   data () {
     return {
-      students: null
+      students: null,
+      addStudentInfo: false,
+      createStudent: true
+    }
+  },
+  methods: {
+    closeDialog () {
+      // let NewPage = '_empty' + '?time=' + new Date().getTime() / 500
+      // this.$router.push(NewPage)
+      this.$router.go(0)
     }
   },
   async created () {

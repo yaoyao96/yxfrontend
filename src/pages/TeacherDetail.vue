@@ -1,60 +1,68 @@
 <template>
-  <div class="q-ma-lg">
+  <div class="q-ma-lg" v-if="isReady">
     <h5> {{teacher.name}} 薪水支出</h5>
-    <q-markup-table>
-      <thead>
-      <tr>
-        <th class="text-left">年份</th>
-        <th class="text-right"> 1月</th>
-        <th class="text-right"> 2月</th>
-        <th class="text-right"> 3月</th>
-        <th class="text-right"> 4月</th>
-        <th class="text-right"> 5月</th>
-        <th class="text-right"> 6月</th>
-        <th class="text-right"> 7月</th>
-        <th class="text-right"> 8月</th>
-        <th class="text-right"> 9月</th>
-        <th class="text-right"> 10月</th>
-        <th class="text-right"> 11月</th>
-        <th class="text-right"> 12月</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td class="text-left">2013</td>
-        <td class="text-right">159</td>
-        <td class="text-right">6</td>
-        <td class="text-right">24</td>
-        <td class="text-right">4</td>
-        <td class="text-right">87</td>
-        <td class="text-right">356</td>
-        <td class="text-right">16</td>
-        <td class="text-right">49</td>
-        <td class="text-right">3.9</td>
-        <td class="text-right">327</td>
-        <td class="text-right">356</td>
-        <td class="text-right">16</td>
-      </tr>
-      </tbody>
-    </q-markup-table>
+    <display-table :columns="scolumns" :data="salaryList"
+                   :create="addSalary" :row-click="editSalary"
+    ></display-table>
     <br>
-    <q-btn color="white" text-color="black" label="增加" style="float: right"/>
+    <q-dialog v-model="addNew"><teacher-salary-form @success="closeDialog" :teacher-name="teacher.name" :salary="salary"
+                                                   :create-salary="createSalary"></teacher-salary-form></q-dialog>
   </div>
 </template>
 
 <script>
 import api from 'src/api/api'
+import displayTable from 'src/components/displayTable'
+import teacherSalaryForm from 'src/components/teacherSalaryForm'
+import scolumns from './column/teacherSalary'
 export default {
   name: 'teacherdetail',
+  components: {
+    displayTable,
+    teacherSalaryForm
+  },
   data () {
     return {
       teacherId: this.$route.params.id,
       teacher: null,
-      salarylist: null
+      salaryList: [],
+      isReady: false,
+      addNew: false,
+      createSalary: false,
+      salary: {
+        year: null,
+        month: null,
+        amount: null,
+        teacher: null
+      },
+      scolumns
     }
   },
+  methods: {
+    closeDialog () {
+      // let NewPage = '_empty' + '?time=' + new Date().getTime() / 500
+      // this.$router.push(NewPage)
+      this.$router.go(0)
+    },
+    editSalary (row) {
+      this.createSalary = false
+      this.salary.id = row.id
+      this.salary.year = row.year
+      this.salary.month = row.month
+      this.salary.amount = row.amount
+      this.addNew = true
+    },
+    addSalary () {
+      this.createSalary = true
+      this.addNew = true
+    }
+  },
+
   async created () {
     this.teacher = await api.getTeacherById(this.teacherId)
+    this.salaryList = await api.getSalaryByTeacherId(this.teacherId)
+    this.salary.teacher = this.teacher.url.slice(0, this.teacher.url.indexOf('?'))
+    this.isReady = true
   }
 }
 </script>

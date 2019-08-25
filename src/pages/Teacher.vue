@@ -1,6 +1,8 @@
 <template>
   <div>
     <!--{{teachers}}-->
+    <q-btn class="q-my-md" @click="addTeacherInfo=true" style="position:relative; left:60vw"> 添加老师 </q-btn>
+    <q-dialog v-model="addTeacherInfo"><teacher-info-form @success="closeDialog"></teacher-info-form></q-dialog>
     <q-card v-for="teacher in teachers" :key="teacher.id"
             clickable
             style="max-width: 80vw"
@@ -23,12 +25,23 @@
 
 <script>
 import api from 'src/api/api'
-
+import teacherInfoForm from 'src/components/teacherInfoForm'
 export default {
   name: 'Teacher',
+  components: {
+    teacherInfoForm
+  },
   data () {
     return {
-      teachers: null
+      teachers: null,
+      addTeacherInfo: false
+    }
+  },
+  methods: {
+    closeDialog () {
+      // let NewPage = '_empty' + '?time=' + new Date().getTime() / 500
+      // this.$router.push(NewPage)
+      this.$router.go(0)
     }
   },
   async created () {

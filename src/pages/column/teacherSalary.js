@@ -1,0 +1,25 @@
+export default [
+  { name: 'year',
+    required: true,
+    label: '年份',
+    align: 'left',
+    field: row => row.year,
+    format: val => `${val}`,
+    sortable: true },
+  { name: 'month',
+    required: true,
+    label: '月份',
+    align: 'left',
+    field: row => row.month,
+    format: val => `${val}月`,
+    sortable: true
+  },
+  { name: 'amount',
+    required: true,
+    label: '金额',
+    align: 'left',
+    field: row => row.amount,
+    format: val => `￥${val}`,
+    sortable: true,
+    sort: (a, b, rowA, rowB) => parseInt(a * 100, 10) - parseInt(b * 100, 10) }
+]

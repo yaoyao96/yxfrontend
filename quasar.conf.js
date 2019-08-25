@@ -57,7 +57,10 @@ module.exports = function (ctx) {
         'QAvatar',
         'QChip',
         'QField',
-        'QInput'
+        'QInput',
+        'QDialog',
+        'QForm',
+        'QSelect'
       ],
 
       directives: [

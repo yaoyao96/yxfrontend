@@ -12,7 +12,9 @@ export default [
     align: 'left',
     field: row => row.amount,
     format: val => `￥${val}`,
-    sortable: true },
+    sortable: true,
+    sort: (a, b, rowA, rowB) => parseInt(a * 100, 10) - parseInt(b * 100, 10)
+  },
   { name: 'time',
     required: true,
     label: '缴费时间',

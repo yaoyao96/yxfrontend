@@ -13,6 +13,11 @@ export default {
   //   let res = await axios.put('/api/suppliers', formData)
   //   return res.data
   // },
+  getAllIncome: async () => {
+    let res = await axios.get(`http://localhost:8000/income/?format=json`)
+    console.log('IncomeList>>', res)
+    return res.data.results
+  },
   getAllTeachers: async () => {
     let res = await axios.get(`http://localhost:8000/teachers/?format=json`)
     console.log('TeacherList>>', res)
@@ -39,7 +44,12 @@ export default {
     return res.data
   },
   getTrainingByStudentId: async (Id) => {
-    let res = await axios.get(`http://localhost:8000/training/${Id}/`)
+    let res = await axios.get(`http://localhost:8000/traininglist/${Id}/`)
+    console.log('trainingList>>', res.data)
+    return res.data
+  },
+  getSalaryByTeacherId: async (Id) => {
+    let res = await axios.get(`http://localhost:8000/salary/${Id}/`)
     console.log('trainingList>>', res.data)
     return res.data
   },
@@ -48,6 +58,71 @@ export default {
     let res = await axios.get(student.teacher)
     console.log('teacher>>', res.data)
     return res.data
+  },
+  createStudentPaid: async (formData) => {
+    let res = await axios.post('http://localhost:8000/studentpaid/', formData, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
+    return res.data
+  },
+  updateStudentPaid: async (Id, formData) => {
+    let res = await axios.put(`http://localhost:8000/studentpaid/${Id}/`, formData, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
+    return res.data
+  },
+  createStudentTraining: async (formData) => {
+    let res = await axios.post('http://localhost:8000/training/', formData, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
+    return res.data
+  },
+  updateStudentTraining: async (Id, formData) => {
+    let res = await axios.put(`http://localhost:8000/training/${Id}/`, formData, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
+    return res.data
+  },
+  createStudent: async (formData) => {
+    let res = await axios.post('http://localhost:8000/students/', formData, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
+    return res.data
+  },
+  updateStudent: async (Id, formData) => {
+    let res = await axios.put(`http://localhost:8000/students/${Id}/`, formData, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
+    return res.data
+  },
+  createTeacher: async (formData) => {
+    let res = await axios.post('http://localhost:8000/teachers/', formData, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
+    return res.data
+  },
+  createTeacherSalary: async (formData) => {
+    let res = await axios.post('http://localhost:8000/teachersalary/', formData, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
+    return res.data
+  },
+  updateTeacherSalary: async (Id, formData) => {
+    let res = await axios.put(`http://localhost:8000/teachersalary/${Id}/`, formData, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
+    return res.data
+  },
+  createIncome: async (formData) => {
+    let res = await axios.post('http://localhost:8000/income/', formData, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
+    return res.data
+  },
+  updateIncome: async (Id, formData) => {
+    let res = await axios.put(`http://localhost:8000/income/${Id}/`, formData, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
+    return res.data
   }
-
 }
