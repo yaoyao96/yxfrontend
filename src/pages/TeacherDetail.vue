@@ -54,6 +54,10 @@ export default {
     },
     addSalary () {
       this.createSalary = true
+      this.salary.id = null
+      this.salary.year = null
+      this.salary.month = null
+      this.salary.amount = null
       this.addNew = true
     }
   },

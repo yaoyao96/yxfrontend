@@ -6,7 +6,7 @@
     :columns="columns"
     row-key="id"
     :filter="filter"
-  ><template v-slot:top-right>
+  ><template v-slot:top-right >
     <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
       <template v-slot:append>
         <q-icon name="search" />
@@ -14,7 +14,7 @@
     </q-input>
     <br>
   </template>
-    <template v-slot:top-left>
+    <template v-slot:top-left v-if="!paidForm">
       <q-btn color="primary" text-color="white" rounded label="+" @click="create()"/>&nbsp; <strong>{{title}}</strong>
     </template>
     <q-tr slot="header" slot-scope="props">
@@ -32,7 +32,7 @@
       </q-td>
     </q-tr>
   </q-table>
-  <div class="q-mt-md">
+  <div class="q-mt-md" v-if="!paidForm">
   总额: {{ amountSum }}</div>
 </div>
 </template>
@@ -47,7 +47,8 @@ export default {
     create: Function,
     rowClick: {
       type: Function
-    }
+    },
+    paidForm: Boolean
   },
   data () {
     return {

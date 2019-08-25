@@ -14,9 +14,16 @@
         />
         <q-input
           filled
+          ref="level"
           v-model="level"
           label="级别"
           type="number"
+          suffix="级"
+          :rules="[
+          val => !!val || '*必填',
+          val => val.length < 3 || '请填写正确的数字',
+        ]"
+          lazy-rules
         />
         <q-input
           filled
@@ -71,17 +78,23 @@ export default {
       this.teacher = null
     },
     async onSubmit () {
-      let param = new FormData() // 创建form对象
-      param.append('name', this.name) // 通过append向form对象添加数据
-      param.append('level', this.level) // 添加form表单中其他数据
-      param.append('date_of_birth', this.dateOfBirth) // 添加form表单中其他数据
-      param.append('teacher', this.teacher.slice(0, this.teacher.indexOf('?'))) // 添加form表单中其他数据
-      if (this.createStudent) {
-        await api.createStudent(param)
+      this.$refs.level.validate()
+
+      if (this.$refs.level.hasError) {
+        // this.formHasError = true
       } else {
-        await api.updateStudent(this.student.id, param)
+        let param = new FormData() // 创建form对象
+        param.append('name', this.name) // 通过append向form对象添加数据
+        param.append('level', this.level) // 添加form表单中其他数据
+        param.append('date_of_birth', this.dateOfBirth) // 添加form表单中其他数据
+        param.append('teacher', this.teacher.slice(0, this.teacher.indexOf('?'))) // 添加form表单中其他数据
+        if (this.createStudent) {
+          await api.createStudent(param)
+        } else {
+          await api.updateStudent(this.student.id, param)
+        }
+        this.$emit('success')
       }
-      this.$emit('success')
     }
   },
   async created () {

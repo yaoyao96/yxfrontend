@@ -81,6 +81,9 @@ export default {
   methods: {
     addPaidFunction () {
       this.createPaid = true
+      this.studentPaid.id = null
+      this.studentPaid.number_of_course = null
+      this.studentPaid.amount = null
       this.addPaid = true
     },
     closePaidDialog () {
@@ -97,6 +100,9 @@ export default {
     },
     addTrainingFunction () {
       this.createTraining = true
+      this.studentTraining.id = null
+      this.studentTraining.number_of_month = null
+      this.studentTraining.amount = null
       this.addTraining = true
     },
     editTraining (row) {

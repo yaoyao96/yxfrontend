@@ -12,9 +12,16 @@
         />
         <q-input
           filled
+          ref="amount"
           v-model="amount"
           label="缴费金额"
           type="number"
+          prefix="￥"
+          :rules="[
+          val => !!val || '*必填',
+          val => val < 999999.99 && val > 0 || '请填写正确的数字',
+        ]"
+          lazy-rules
         />
       </q-form>
       <br>
@@ -49,15 +56,21 @@ export default {
       this.amount = null
     },
     async onSubmit () {
-      let param = new FormData() // 创建form对象
-      param.append('income_type', this.incomeType) // 通过append向form对象添加数据
-      param.append('amount', this.amount) // 添加form表单中其他数据
-      if (this.createIncome) {
-        await api.createIncome(param)
+      this.$refs.amount.validate()
+
+      if (this.$refs.amount.hasError) {
+        // this.formHasError = true
       } else {
-        await api.updateIncome(this.income.id, param)
+        let param = new FormData() // 创建form对象
+        param.append('income_type', this.incomeType) // 通过append向form对象添加数据
+        param.append('amount', this.amount) // 添加form表单中其他数据
+        if (this.createIncome) {
+          await api.createIncome(param)
+        } else {
+          await api.updateIncome(this.income.id, param)
+        }
+        this.$emit('success')
       }
-      this.$emit('success')
     }
   },
   created () {

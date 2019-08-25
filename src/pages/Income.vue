@@ -48,6 +48,9 @@ export default {
     },
     addIncome () {
       this.createIncome = true
+      this.income.id = null
+      this.income.income_type = null
+      this.income.amount = null
       this.addNew = true
     }
   },

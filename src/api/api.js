@@ -13,6 +13,11 @@ export default {
   //   let res = await axios.put('/api/suppliers', formData)
   //   return res.data
   // },
+  getAllPaidPeriod: async () => {
+    let res = await axios.get(`http://localhost:8000/paidperiod/`)
+    console.log('paidPeriodList>>', res)
+    return res.data
+  },
   getAllIncome: async () => {
     let res = await axios.get(`http://localhost:8000/income/?format=json`)
     console.log('IncomeList>>', res)
