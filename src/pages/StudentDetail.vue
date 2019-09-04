@@ -100,11 +100,15 @@ export default {
   },
   methods: {
     addPaidFunction () {
+      // console.log('1>>', this.createPaid)
       this.createPaid = true
-      // this.studentPaid.id = null
-      // this.studentPaid.number_of_course = null
-      // this.studentPaid.amount = null
+      // console.log('2>>', this.createPaid)
+      this.studentPaid.id = null
+      this.studentPaid.number_of_course = null
+      this.studentPaid.amount = null
+      this.studentPaid.remarks = null
       this.addPaid = true
+      // console.log('3>>', this.createPaid)
     },
     closePaidDialog () {
       // let NewPage = '_empty' + '?time=' + new Date().getTime() / 500
@@ -121,10 +125,10 @@ export default {
     },
     addTrainingFunction () {
       this.createTraining = true
-      // this.studentTraining.id = null
-      // this.studentTraining.number_of_month = null
-      // this.studentTraining.amount = null
-      // this.studentTraining.remarks = null
+      this.studentTraining.id = null
+      this.studentTraining.number_of_month = null
+      this.studentTraining.amount = null
+      this.studentTraining.remarks = null
       this.addTraining = true
     },
     editTraining (row) {

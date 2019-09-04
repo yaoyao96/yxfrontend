@@ -27,7 +27,7 @@
           prefix="￥"
           :rules="[
           val => !!val || '*必填',
-          val => val < 99999.99 && val > 0  || '请填写正确的数字',
+          val => val < 99999.99 && val >= 0  || '请填写正确的数字',
         ]"
           lazy-rules
         />
@@ -81,6 +81,7 @@ export default {
         // this.formHasError = true
       } else {
         let param = new FormData() // 创建form对象
+        if (!this.numberOfMonth) { this.numberOfMonth = 0 }
         param.append('number_of_month', this.numberOfMonth) // 通过append向form对象添加数据
         param.append('amount', this.amount) // 添加form表单中其他数据
         param.append('student', this.studentTraining.student) // 添加form表单中其他数据
@@ -97,11 +98,9 @@ export default {
     }
   },
   created () {
-    if (!this.createTraining) {
-      this.numberOfMonth = this.studentTraining.number_of_month
-      this.amount = this.studentTraining.amount
-      this.remarks = this.studentTraining.remarks
-    }
+    this.numberOfMonth = this.studentTraining.number_of_month
+    this.amount = this.studentTraining.amount
+    this.remarks = this.studentTraining.remarks
   }
 
 }

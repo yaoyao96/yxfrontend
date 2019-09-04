@@ -8,8 +8,12 @@
         <present-field v-if="!createStudent" label="学生号" icon="face" :text="student.id"></present-field>
         <q-input
           filled
+          ref="name"
           v-model="name"
           label="姓名"
+          :rules="[
+          val => !!val || '*必填'
+        ]"
         />
         <q-input
           filled
@@ -20,16 +24,21 @@
           suffix="级"
           :rules="[
           val => !!val || '*必填',
-          val => val < 12 && val > 0 || '请填写正确的数字',
+          val => val < 12 && val >= 0 || '请填写正确的数字',
         ]"
           lazy-rules
         />
+        {{dateOfBirth}}
         <q-input
           filled
           v-model="dateOfBirth"
+          ref="dateOfBirth"
           bottom-slots
           label="出生日期"
           type="date"
+          :rules="[
+          val => !val || /^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))$/.test(val) || '请输入正确的日期' ,
+        ]"
         ><template v-slot:hint>
           请点击右边角标选择日期
         </template></q-input>
@@ -39,6 +48,10 @@
                   emit-value
                   map-options
                   filled
+                  ref="teacher"
+                  :rules="[
+          val => !!val || '*必填'
+        ]"
                   label="老师" />
         <q-input
           filled
@@ -52,8 +65,8 @@
       <loading v-else></loading>
       <br>
       <div>
-        <q-btn label="提交" type="submit" color="primary" @click="onSubmit"/>
-        <q-btn label="重置" type="reset" color="primary" flat class="q-ml-sm" @click="onReset"/>
+        <q-btn label="提交" color="primary" @click="onSubmit"/>
+        <q-btn label="重置" color="primary" flat class="q-ml-sm" @click="onReset"/>
       </div>
     </div></q-card>
 </template>
@@ -89,21 +102,27 @@ export default {
       this.level = null
       this.dateOfBirth = null
       this.teacher = null
+      this.remarks = null
     },
     async onSubmit () {
       this.$refs.level.validate()
+      this.$refs.name.validate()
+      this.$refs.teacher.validate()
+      this.$refs.dateOfBirth.validate()
 
-      if (this.$refs.level.hasError) {
+      if (this.$refs.level.hasError || this.$refs.name.hasError || this.$refs.teacher.hasError || this.$refs.dateOfBirth.hasError) {
         // this.formHasError = true
       } else {
         let param = new FormData() // 创建form对象
         param.append('name', this.name) // 通过append向form对象添加数据
         param.append('level', this.level)
-        param.append('date_of_birth', this.dateOfBirth)
+        if (this.dateOfBirth) { param.append('date_of_birth', this.dateOfBirth) }
         if (this.remarks) {
           param.append('remarks', this.remarks)
         }
-        param.append('teacher', this.teacher.slice(0, this.teacher.indexOf('?')))
+        if (this.teacher) {
+          param.append('teacher', this.teacher.slice(0, this.teacher.indexOf('?')))
+        }
         if (this.createStudent) {
           await api.createStudent(param)
         } else {

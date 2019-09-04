@@ -1,4 +1,12 @@
 export default [
+  { name: 'id',
+    required: true,
+    label: '序号',
+    align: 'left',
+    field: row => row.id,
+    format: val => `${val}`,
+    style: 'max-width: 20px',
+    sortable: true },
   { name: 'name',
     required: true,
     label: '学生名',

@@ -10,6 +10,9 @@
           aria-label="Menu"
         >
           <q-icon name="menu" />
+          <q-tooltip content-style="font-size: 16px">
+            点击查看菜单
+          </q-tooltip>
         </q-btn>
 
         <q-toolbar-title>

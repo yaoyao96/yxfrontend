@@ -62,6 +62,7 @@ module.exports = function (ctx) {
         'QForm',
         'QSelect',
         'QExpansionItem',
+        'QTooltip',
         'QSpinnerHourglass'
       ],
 

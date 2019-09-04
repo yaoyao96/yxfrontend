@@ -10,7 +10,7 @@ export default [
     required: true,
     label: '缴费总金额',
     align: 'left',
-    field: row => row.sum_of_paid,
+    field: row => row.sum_of_paid ? row.sum_of_paid : 0,
     format: val => `￥${val}`,
     sortable: true,
     sort: (a, b, rowA, rowB) => parseInt(a * 100, 10) - parseInt(b * 100, 10)

@@ -13,8 +13,7 @@
         type="number"
         suffix="节"
         :rules="[
-          val => !!val || '*必填',
-          val => val < 1000 || '请填写正确的数字',
+          val => !val || val < 1000 || '请填写正确的数字',
         ]"
         lazy-rules
       />
@@ -27,7 +26,7 @@
         prefix="￥"
         :rules="[
           val => !!val || '*必填',
-          val => val < 99999.99 && val > 0  || '请填写正确的数字',
+          val => val < 99999.99 && val >= 0  || '请填写正确的数字',
         ]"
         lazy-rules
       />
@@ -82,9 +81,10 @@ export default {
         // this.formHasError = true
       } else {
         let param = new FormData() // 创建form对象
-        param.append('number_of_course', this.numberOfCourse) // 通过append向form对象添加数据
-        param.append('amount', this.amount) // 添加form表单中其他数据
-        param.append('student', this.studentPaid.student) // 添加form表单中其他数据
+        if (!this.numberOfCourse) { this.numberOfCourse = 0 }
+        param.append('number_of_course', this.numberOfCourse)// 通过append向form对象添加数据
+        param.append('amount', this.amount)
+        param.append('student', this.studentPaid.student)
         if (this.remarks) {
           param.append('remarks', this.remarks)
         }
@@ -98,11 +98,9 @@ export default {
     }
   },
   created () {
-    if (!this.createPaid) {
-      this.numberOfCourse = this.studentPaid.number_of_course
-      this.amount = this.studentPaid.amount
-      this.remarks = this.studentPaid.remarks
-    }
+    this.numberOfCourse = this.studentPaid.number_of_course
+    this.amount = this.studentPaid.amount
+    this.remarks = this.studentPaid.remarks
   }
 
 }

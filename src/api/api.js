@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+// const proxyurl = 'https://cors-anywhere.herokuapp.com/'
+
 export default {
   // entityIdTakenChecker: async (country, idType, id) => {
   //   let res = await axios.get(`/api/suppliers/entityidcheck?country=${country}&entityIdType=${idType}&entityId=${id}`)
@@ -12,6 +14,11 @@ export default {
   // updateSupplier: async (formData) => {
   //   let res = await axios.put('/api/suppliers', formData)
   //   return res.data
+  // },
+  // getData: async () => {
+  //   let res = await axios.get(`${proxyurl}https://www.getpostman.com/collections/aeda02068150bbf58a0b`)
+  //   console.log('testdate>>', res)
+  //   return res
   // },
   getAllPaidSum: async () => {
     let res = await axios.get(`http://localhost:8000/paidSum/`)

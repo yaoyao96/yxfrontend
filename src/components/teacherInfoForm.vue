@@ -6,8 +6,11 @@
       >
         <q-input
           filled
+          ref="name"
           v-model="name"
           label="姓名"
+          :rules="[
+          val => !!val || '*必填']"
         />
       </q-form>
       <br>
@@ -32,10 +35,15 @@ export default {
       this.name = null
     },
     async onSubmit () {
-      let param = new FormData() // 创建form对象
-      param.append('name', this.name) // 通过append向form对象添加数据
-      await api.createTeacher(param)
-      this.$emit('success')
+      this.$refs.name.validate()
+      if (this.$refs.name.hasError) {
+        // this.formHasError = true
+      } else {
+        let param = new FormData() // 创建form对象
+        param.append('name', this.name) // 通过append向form对象添加数据
+        await api.createTeacher(param)
+        this.$emit('success')
+      }
     }
   }
 

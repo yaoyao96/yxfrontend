@@ -116,12 +116,10 @@ export default {
     }
   },
   created () {
-    if (!this.createSalary) {
-      this.year = this.salary.year
-      this.month = this.salary.month
-      this.amount = this.salary.amount
-      this.remarks = this.salary.remarks
-    }
+    this.year = this.salary.year
+    this.month = this.salary.month
+    this.amount = this.salary.amount
+    this.remarks = this.salary.remarks
   }
 
 }

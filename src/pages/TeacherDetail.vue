@@ -2,7 +2,9 @@
   <div><div class="q-ma-lg" v-if="isReady">
     <div class="q-ma-md row" >
     <p class="text-h5"> {{teacher.name}} 薪水支出</p>
-    <q-btn @click="deleteTeacher=true" style="position:relative; left:50vw">删除</q-btn>
+    <q-btn @click="deleteTeacher=true" style="position:relative; left:50vw">删除 <q-tooltip content-style="font-size: 10px">
+      点击删除教师
+    </q-tooltip></q-btn>
     </div>
     <display-table :columns="scolumns" :data="salaryList"
                    :create="addSalary" :row-click="editSalary"
@@ -77,11 +79,11 @@ export default {
     },
     addSalary () {
       this.createSalary = true
-      // this.salary.id = null
-      // this.salary.year = null
-      // this.salary.month = null
-      // this.salary.amount = null
-      // this.salary.remarks = null
+      this.salary.id = null
+      this.salary.year = null
+      this.salary.month = null
+      this.salary.amount = null
+      this.salary.remarks = null
       this.addNew = true
     },
     async deleteTeacherInfo () {
