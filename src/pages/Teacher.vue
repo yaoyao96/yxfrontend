@@ -3,11 +3,11 @@
     <!--{{teachers}}-->
     <q-btn class="q-my-md" @click="addTeacherInfo=true" style="position:relative; left:60vw"> 添加老师 </q-btn>
     <q-dialog v-model="addTeacherInfo"><teacher-info-form @success="closeDialog"></teacher-info-form></q-dialog>
-    <q-card v-for="teacher in teachers" :key="teacher.id"
+    <q-card
             clickable
             style="max-width: 80vw"
-            class="q-pa-sm q-ma-lg">
-      <q-item clickable :to="{name: 'teacherdetail', params: { id: teacher.id }}">
+            class="q-pa-sm q-ma-lg row">
+      <q-item class="col-4" v-for="teacher in teachers" :key="teacher.id" clickable :to="{name: 'teacherdetail', params: { id: teacher.id }}">
         <q-item-section avatar>
           <q-avatar style="background-color: powderblue">
             {{teacher.id}}
@@ -16,7 +16,6 @@
 
         <q-item-section>
           <q-item-label>{{teacher.name}}</q-item-label>
-          <q-item-label caption>老师</q-item-label>
         </q-item-section>
       </q-item>
     </q-card>
@@ -27,7 +26,7 @@
 import api from 'src/api/api'
 import teacherInfoForm from 'src/components/teacherInfoForm'
 export default {
-  name: 'Teacher',
+  name: 'teacher',
   components: {
     teacherInfoForm
   },
@@ -45,7 +44,8 @@ export default {
     }
   },
   async created () {
-    this.teachers = await api.getAllTeachers()
+    let temp = await api.getAllTeachers()
+    this.teachers = temp.filter(t => t.name !== '无')
   }
 }
 </script>

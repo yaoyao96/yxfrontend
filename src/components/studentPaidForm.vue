@@ -14,7 +14,7 @@
         suffix="节"
         :rules="[
           val => !!val || '*必填',
-          val => val.length < 11 || '请填写正确的数字',
+          val => val < 1000 || '请填写正确的数字',
         ]"
         lazy-rules
       />
@@ -30,6 +30,13 @@
           val => val < 99999.99 && val > 0  || '请填写正确的数字',
         ]"
         lazy-rules
+      />
+      <q-input
+        filled
+        v-model="remarks"
+        label="备注"
+        autogrow
+        placeholder="可不填写"
       />
     </q-form>
     <br>
@@ -51,7 +58,8 @@ export default {
   data () {
     return {
       numberOfCourse: null,
-      amount: null
+      amount: null,
+      remarks: null
     }
   },
   props: {
@@ -64,6 +72,7 @@ export default {
     onReset () {
       this.numberOfCourse = null
       this.amount = null
+      this.remarks = null
     },
     async onSubmit () {
       this.$refs.numberOfCourse.validate()
@@ -76,6 +85,9 @@ export default {
         param.append('number_of_course', this.numberOfCourse) // 通过append向form对象添加数据
         param.append('amount', this.amount) // 添加form表单中其他数据
         param.append('student', this.studentPaid.student) // 添加form表单中其他数据
+        if (this.remarks) {
+          param.append('remarks', this.remarks)
+        }
         if (this.createPaid) {
           await api.createStudentPaid(param)
         } else {
@@ -89,6 +101,7 @@ export default {
     if (!this.createPaid) {
       this.numberOfCourse = this.studentPaid.number_of_course
       this.amount = this.studentPaid.amount
+      this.remarks = this.studentPaid.remarks
     }
   }
 

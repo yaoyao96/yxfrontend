@@ -26,6 +26,11 @@ export default [
     label: '备注',
     align: 'left',
     field: row => row.remarks ? row.remarks : '无',
+    sortable: true },
+  { name: 'student',
+    required: true,
+    label: '学生',
+    align: 'left',
+    field: row => row.student,
     sortable: true }
 ]
-// 'number_of_month','amount','create_time','student'

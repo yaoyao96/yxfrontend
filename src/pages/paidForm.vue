@@ -1,17 +1,19 @@
 <template>
-  <div class="q-ma-lg" v-if="isReady">
+  <div><div class="q-ma-lg" v-if="isReady">
     <display-table :columns="paidPeriodColumn" :data="paidPeriodList"
-                   paid-form title="学生缴费" :row-click="toStudent"></display-table></div>
+                   paid-form title="学生概况" :row-click="toStudent"></display-table></div><loading v-else></loading></div>
 </template>
 
 <script>
 import api from 'src/api/api'
 import paidPeriod from 'src/pages/column/paidPeriod'
 import displayTable from 'src/components/displayTable'
+import loading from 'src/components/loading'
 export default {
   name: 'paidform',
   components: {
-    displayTable
+    displayTable,
+    loading
   },
   data () {
     return {

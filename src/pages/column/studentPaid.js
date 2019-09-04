@@ -20,6 +20,12 @@ export default [
     label: '缴费时间',
     align: 'left',
     field: row => row.create_time,
+    sortable: true },
+  { name: 'remarks',
+    required: true,
+    label: '备注',
+    align: 'left',
+    field: row => row.remarks ? row.remarks : '无',
     sortable: true }
 ]
 // 'url', 'id','number_of_course','amount','create_time','student'

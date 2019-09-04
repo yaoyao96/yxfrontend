@@ -20,6 +20,12 @@ export default [
     label: '开支时间',
     align: 'left',
     field: row => row.create_time,
+    sortable: true },
+  { name: 'remarks',
+    required: true,
+    label: '备注',
+    align: 'left',
+    field: row => row.remarks ? row.remarks : '无',
     sortable: true }
 ]
 // 'number_of_month','amount','create_time','student'

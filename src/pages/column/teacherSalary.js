@@ -21,5 +21,11 @@ export default [
     field: row => row.amount,
     format: val => `￥${val}`,
     sortable: true,
-    sort: (a, b, rowA, rowB) => parseInt(a * 100, 10) - parseInt(b * 100, 10) }
+    sort: (a, b, rowA, rowB) => parseInt(a * 100, 10) - parseInt(b * 100, 10) },
+  { name: 'remarks',
+    required: true,
+    label: '备注',
+    align: 'left',
+    field: row => row.remarks ? row.remarks : '无',
+    sortable: true }
 ]

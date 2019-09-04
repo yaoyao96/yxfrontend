@@ -13,6 +13,16 @@ export default {
   //   let res = await axios.put('/api/suppliers', formData)
   //   return res.data
   // },
+  getAllPaidSum: async () => {
+    let res = await axios.get(`http://localhost:8000/paidSum/`)
+    console.log('paidPeriodList>>', res)
+    return res.data
+  },
+  getAllTrainingSum: async () => {
+    let res = await axios.get(`http://localhost:8000/trainingSum/`)
+    console.log('paidPeriodList>>', res)
+    return res.data
+  },
   getAllPaidPeriod: async () => {
     let res = await axios.get(`http://localhost:8000/paidperiod/`)
     console.log('paidPeriodList>>', res)
@@ -41,6 +51,26 @@ export default {
   getStudentById: async (Id) => {
     let res = await axios.get(`http://localhost:8000/students/${Id}/?format=json`)
     console.log('student>>', res.data)
+    return res.data
+  },
+  getAllPaid: async () => {
+    let res = await axios.get(`http://localhost:8000/paidlist/`)
+    console.log('paidList>>', res.data)
+    return res.data
+  },
+  getAllTraining: async (Id) => {
+    let res = await axios.get(`http://localhost:8000/traininglist/`)
+    console.log('trainingList>>', res.data)
+    return res.data
+  },
+  getPaidGroupByStudent: async () => {
+    let res = await axios.get(`http://localhost:8000/paidGroupByStudent/`)
+    console.log('paidGroupByStudent>>', res.data)
+    return res.data
+  },
+  getTrainingGroupByStudent: async () => {
+    let res = await axios.get(`http://localhost:8000/trainingGroupByStudent/`)
+    console.log('trainingGroupByStudent>>', res.data)
     return res.data
   },
   getPaidByStudentId: async (Id) => {
@@ -104,6 +134,17 @@ export default {
     let res = await axios.post('http://localhost:8000/teachers/', formData, {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     })
+    return res.data
+  },
+  updateTeacher: async (Id, formData) => {
+    let res = await axios.put(`http://localhost:8000/teachers/${Id}/`, formData, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
+    return res.data
+  },
+  deleteTeacherOfStudent: async (Id) => {
+    let res = await axios.get(`http://localhost:8000/deleteteacher/${Id}`)
+    console.log('studentList>>', res.data)
     return res.data
   },
   createTeacherSalary: async (formData) => {

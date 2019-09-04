@@ -57,7 +57,7 @@
             <q-icon name="fas fa-music" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>表单管理</q-item-label>
+            <q-item-label>缴费汇总</q-item-label>
             <q-item-label caption>生成表单</q-item-label>
           </q-item-section>
         </q-item>

@@ -1,10 +1,10 @@
 export default [
-  { name: 'month',
+  { name: 'course',
     required: true,
-    label: '缴费月数',
+    label: '缴费课程数',
     align: 'left',
-    field: row => row.number_of_month,
-    format: val => `${val}个月`,
+    field: row => row.number_of_course,
+    format: val => `${val}节`,
     sortable: true },
   { name: 'amount',
     required: true,
@@ -26,6 +26,11 @@ export default [
     label: '备注',
     align: 'left',
     field: row => row.remarks ? row.remarks : '无',
+    sortable: true },
+  { name: 'student',
+    required: true,
+    label: '学生',
+    align: 'left',
+    field: row => row.student,
     sortable: true }
 ]
-// 'number_of_month','amount','create_time','student'

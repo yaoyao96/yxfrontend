@@ -14,7 +14,7 @@
           suffix="个月"
           :rules="[
           val => !!val || '*必填',
-          val => val.length < 3 || '请填写正确的数字',
+          val => val < 100 || '请填写正确的数字',
         ]"
           lazy-rules
         />
@@ -30,6 +30,13 @@
           val => val < 99999.99 && val > 0  || '请填写正确的数字',
         ]"
           lazy-rules
+        />
+        <q-input
+          filled
+          v-model="remarks"
+          label="备注"
+          autogrow
+          placeholder="可不填写"
         />
       </q-form>
       <br>
@@ -51,7 +58,8 @@ export default {
   data () {
     return {
       numberOfMonth: null,
-      amount: null
+      amount: null,
+      remarks: null
     }
   },
   props: {
@@ -76,6 +84,9 @@ export default {
         param.append('number_of_month', this.numberOfMonth) // 通过append向form对象添加数据
         param.append('amount', this.amount) // 添加form表单中其他数据
         param.append('student', this.studentTraining.student) // 添加form表单中其他数据
+        if (this.remarks) {
+          param.append('remarks', this.remarks)
+        }
         if (this.createTraining) {
           await api.createStudentTraining(param)
         } else {
@@ -89,6 +100,7 @@ export default {
     if (!this.createTraining) {
       this.numberOfMonth = this.studentTraining.number_of_month
       this.amount = this.studentTraining.amount
+      this.remarks = this.studentTraining.remarks
     }
   }
 
